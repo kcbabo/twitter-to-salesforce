@@ -62,21 +62,13 @@ public class Application extends RouteBuilder {
         		"&consumerSecret={{twitter.consumer.secret}}" + 
         		"&accessToken={{twitter.access.token}}" + 
         		"&accessTokenSecret={{twitter.access.token.secret}}")
-        	.process(new Processor() {
-        		public void process(Exchange ex) throws Exception {
-        			Status status = ex.getIn().getBody(Status.class);
-        			Contact contact = new Contact();
-        			contact.setFirstName(status.getUser().getName().split(" ")[0]);
-        			contact.setLastName(status.getUser().getName().split(" ")[1]);
-        			contact.setDescription(status.getText());
-        			contact.setTitle(status.getUser().getScreenName());
-        			ex.getIn().setBody(contact);
-        			/*
-        			location = status.getUser().getLocation();
-        			*/
-        		}
-        	})
+        	.to("bean:mapTweet")
         	.to("salesforce:createSObject");
+    }
+    
+    @Bean
+    public DataMapping mapTweet() {
+    	return new DataMapping();
     }
     
     @Bean
