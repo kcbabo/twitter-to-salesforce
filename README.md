@@ -2,6 +2,7 @@ Basic example demonstrating Twitter to Salesforce with data mapping in between.
 
 NOTE: This git repo ignores application.properties because that's where I have all my login info.  You will want to create your own with the following settings:
 
+```
 logging.config=classpath:logback.xml
 
 # the options from org.apache.camel.spring.boot.CamelConfigurationProperties can be configured here
@@ -28,3 +29,4 @@ salesforce.clientId=
 salesforce.secret=
 salesforce.username=
 salesforce.password=
+```
